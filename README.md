@@ -1,6 +1,6 @@
-# Env Caster
+# Vite Env Caster
 
-Casting your **Environment Variables** to **real javascript's type**.
+Casting your **Environment Variables** to **real javascript's type**. Right now, only support Vite.
 
 <p>
   <a href="https://www.npmjs.com/package/@niku/vite-env-caster" target="_blank">
