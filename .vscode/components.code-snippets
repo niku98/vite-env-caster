@@ -1,0 +1,43 @@
+{
+  "Reactjs Function Component": {
+    "prefix": ["rjs-component"],
+    "body": [
+      "interface ${1:ComponentName}Props {}",
+      "",
+      "export const ${1:ComponentName} = (props: ${1:ComponentName}Props) => {",
+      "\treturn ${2:<></>};",
+      "};"
+    ],
+    "description": ""
+  },
+  "Reactjs Function Component - Export Default": {
+    "prefix": ["rjs-component-d"],
+    "body": [
+      "interface ${1:ComponentName}Props {}",
+      "",
+      "const ${1:ComponentName} = (props: ${1:ComponentName}Props) => {",
+      "\treturn ${2:<></>}",
+      "};",
+      "",
+      "export default ${1:ComponentName}"
+    ],
+    "description": ""
+  },
+  "Reactjs Page Component": {
+    "prefix": ["rjsp"],
+    "body": [
+      "definePageMeta({",
+      "\ttitle: '${2:Page title}',",
+      "});",
+      "",
+      "interface ${1:PageName}Props {}",
+      "",
+      "const ${1:PageName} = (props: ${1:PageName}Props) => {",
+      "\treturn ${3:<></>}",
+      "};",
+      "",
+      "export default ${1:PageName};"
+    ],
+    "description": ""
+  }
+}

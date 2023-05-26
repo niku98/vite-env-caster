@@ -1,0 +1,90 @@
+{
+  // Place your ReduxObservable workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+  // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+  // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+  // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+  // Placeholders with the same ids are connected.
+  // Example:
+  // "Print to console": {
+  // 	"scope": "javascript,typescript",
+  // 	"prefix": "log",
+  // 	"body": [
+  // 		"console.log('$1');",
+  // 		"$2"
+  // 	],
+  // 	"description": "Log output to console"
+  // }
+
+  "Repository function": {
+    "prefix": ["repo-func"],
+    "body": [
+      "const ${1:Demo}Repository = createRepository(",
+      "\t{",
+      "\t\tbaseURL: `\\${getAppEnv().apiUrl}/${2:demo}`,",
+      "\t},",
+      "\t{",
+      "\t\tgetList(api, params: GetList${1:Demo}Request) {",
+      "\t\t\treturn api.get<GetList${1:Demo}Response>('', params);",
+      "\t\t},",
+      "\t\tgetOne(api, id: string) {",
+      "\t\t\treturn api.get(`/\\${id}`);",
+      "\t\t},",
+      "\t\tcreate(api, data: Create${1:Demo}Request) {",
+      "\t\t\treturn api.post<Create${1:Demo}Response>('', data);",
+      "\t\t},",
+      "\t\tupdate(api, id: string, data: Update${1:Demo}Request) {",
+      "\t\t\treturn api.put<Update${1:Demo}Response>(`/\\${id}`, data);",
+      "\t\t},",
+      "\t\tdelete(api, id: string) {",
+      "\t\t\treturn api.delete<Delete${1:Demo}Response>(`/\\${id}`);",
+      "\t\t},",
+      "\t}",
+      ");",
+      "",
+      "export default ${1:Demo}Repository;"
+    ],
+    "description": "Define repository function based snippet"
+  },
+
+  "Repository hooks": {
+    "prefix": ["repo-hooks"],
+    "body": [
+      "const ${1:Demo}RepositoryHooks = createRepositoryHooks(",
+      "\t{",
+      "\t\tbaseURL: `\\${getAppEnv().apiUrl}/${2:demo}`,",
+      "\t},",
+      "\t{",
+      "\t\tgetList: {",
+      "\t\t\tfunc: (api, params: GetList${1:Demo}Request) => {",
+      "\t\t\t\treturn api.get<GetList${1:Demo}Response>('', params);",
+      "\t\t\t},",
+      "\t\t},",
+      "\t\tgetOne: {",
+      "\t\t\tfunc: (api, id: string) => {",
+      "\t\t\t\treturn api.get(`/\\${id}`);",
+      "\t\t\t},",
+      "\t\t},",
+      "\t\tcreate: {",
+      "\t\t\tfunc: (api, data: Create${1:Demo}Request) => {",
+      "\t\t\t\treturn api.post<Create${1:Demo}Response>('', data);",
+      "\t\t\t},",
+      "\t\t},",
+      "\t\tupdate: {",
+      "\t\t\tfunc: (api, id: string, data: Update${1:Demo}Request) => {",
+      "\t\t\t\treturn api.put<Update${1:Demo}Response>(`/\\${id}`, data);",
+      "\t\t\t},",
+      "\t\t},",
+      "\t\tdelete: {",
+      "\t\t\tfunc: (api, id: string) => {",
+      "\t\t\t\treturn api.delete<Delete${1:Demo}Response>(`/\\${id}`);",
+      "\t\t\t},",
+      "\t\t}",
+      "\t},",
+      ");",
+      "",
+      "export default ${1:Demo}RepositoryHooks;"
+    ],
+    "description": "Define repository hooks function based snippet"
+  }
+}

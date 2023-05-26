@@ -1,0 +1,27 @@
+{
+	"name": "@niku/vite-env-caster",
+	"private": false,
+	"license": "MIT",
+	"version": "0.0.1",
+	"type": "module",
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md",
+		"LICENSE"
+	],
+	"scripts": {
+		"dev": "vite",
+		"build": "tsup",
+		"release": "bumpp & npm publish"
+	},
+	"devDependencies": {
+		"@types/node": "^20.2.4",
+		"bumpp": "^9.1.0",
+		"tsup": "^6.7.0",
+		"typescript": "^4.9.4",
+		"vite": "^4.0.4"
+	}
+}
