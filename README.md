@@ -3,12 +3,12 @@
 Casting your **Environment Variables** to **real javascript's type**.
 
 <p>
-	<a href="https://www.npmjs.com/package/@niku/vite-env-caster" target="_blank">
-		<img src="https://img.shields.io/npm/v/@niku/vite-env-caster.svg?label=&color=18C75B">
-	</a>
-	<a href="https://npm-stat.com/charts.html?package=@niku/vite-env-caster" target="_blank">
-		<img src="https://img.shields.io/npm/dm/@niku/vite-env-caster.svg?label=&color=F09E18">
-	</a>
+  <a href="https://www.npmjs.com/package/@niku/vite-env-caster" target="_blank">
+    <img src="https://img.shields.io/npm/v/@niku/vite-env-caster.svg?label=&color=18C75B">
+  </a>
+  <a href="https://npm-stat.com/charts.html?package=@niku/vite-env-caster" target="_blank">
+    <img src="https://img.shields.io/npm/dm/@niku/vite-env-caster.svg?label=&color=F09E18">
+  </a>
 </p>
 <br>
 
@@ -124,7 +124,7 @@ By default, file `env.d.ts` will be generated at root of project. You can includ
 ```json
 // tsconfig.json
 {
-	"include": ["env.d.ts", ...]
+  "include": ["env.d.ts", ...]
 }
 ```
 
@@ -142,8 +142,8 @@ import {camelCase} from "lodash";
 export default defineConfig({
   plugins: [
     EnvCaster({
-			transformKey: (plainKey) => camelCase(plainKey).replace("VITE_", "")
-		}),
+      transformKey: (plainKey) => camelCase(plainKey).replace("VITE_", "")
+    }),
   ],
 })
 ```
@@ -172,28 +172,28 @@ import {camelCase} from "lodash";
 export default defineConfig({
   plugins: [
     EnvCaster({
-			typeCasters: {
-				number: {
-					// Check if variable is number
-					isType(plainValue, type) {
-				    if (type) { // Forced type
-				      return type.toLowerCase() === "number";
-				    }
+      typeCasters: {
+        number: {
+          // Check if variable is number
+          isType(plainValue, type) {
+            if (type) { // Forced type
+              return type.toLowerCase() === "number";
+            }
 
-						// Auto detect
-				    return !Number.isNaN(Number(plainValue));
-				  },
-					// Cast variable to number
-				  castValue(plainValue) {
-				    return Number(plainValue);
-				  },
-					// Type in declaration file
-				  typescriptType() {
-				    return "number";
-				  },
-				}
-			},
-		}),
+            // Auto detect
+            return !Number.isNaN(Number(plainValue));
+          },
+          // Cast variable to number
+          castValue(plainValue) {
+            return Number(plainValue);
+          },
+          // Type in declaration file
+          typescriptType() {
+            return "number";
+          },
+        }
+      },
+    }),
   ],
 })
 ```
