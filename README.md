@@ -1,6 +1,6 @@
 # Vite Env Caster
 
-Casting your **Environment Variables** to **real javascript's type**. Right now, only support Vite.
+Casting your **Environment Variables** to **real javascript's type**.
 
 <p>
   <a href="https://www.npmjs.com/package/@niku/vite-env-caster" target="_blank">
@@ -142,7 +142,7 @@ import {camelCase} from "lodash";
 export default defineConfig({
   plugins: [
     EnvCaster({
-      transformKey: (plainKey) => camelCase(plainKey).replace("VITE_", "")
+      transformKey: (plainKey) => camelCase(plainKey.replace("VITE_", ""))
     }),
   ],
 })

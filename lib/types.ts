@@ -23,7 +23,7 @@ export interface EnvCasterOptions {
 	declaration?: false | string;
 
 	typeCasters?: TypeCasters &
-		Record<keyof typeof defaultTypeCasters, TypeCaster>;
+		Partial<Record<keyof typeof defaultTypeCasters, TypeCaster>>;
 
 	/**
 	 * Transform env key

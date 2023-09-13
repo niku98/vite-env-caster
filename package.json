@@ -1,12 +1,41 @@
 {
 	"name": "@niku/vite-env-caster",
+	"version": "1.0.1",
+	"title": "Vite Env Caster",
+	"description": "New way to use environment variables in Vite",
 	"private": false,
+	"author": {
+		"name": "Niku",
+		"url": "https://github.com/niku98",
+		"email": "phammanh.1221998@gmail.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/niku98/vite-env-caster"
+	},
+	"homepage": "https://github.com/niku98/vite-env-caster",
+	"bugs": {
+		"email": "phammanh.1221998@gmail.com",
+		"url": "https://github.com/niku98/vite-env-caster/issues"
+	},
+	"keywords": [
+		"vite",
+		"vitejs",
+		"vite env",
+		"vite-env",
+		"vite environment variables",
+		"environment variables caster",
+		"environment variables casting",
+		"environment variables transform"
+	],
 	"license": "MIT",
-	"version": "0.0.1",
 	"type": "module",
 	"main": "./dist/index.cjs",
 	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
+	"publishConfig": {
+		"access": "public"
+	},
 	"files": [
 		"dist",
 		"README.md",
