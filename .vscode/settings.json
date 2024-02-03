@@ -25,5 +25,6 @@
 	"editor.codeActionsOnSave": {
 		"source.organizeImports": true
 	},
-	"cSpell.words": ["antd", "Immer", "Sider", "zustand"]
+	"cSpell.words": ["antd", "Immer", "Sider", "zustand"],
+	"CodeGPT.apiKey": "OpenAI"
 }

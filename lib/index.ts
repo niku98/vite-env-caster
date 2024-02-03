@@ -2,7 +2,7 @@ import type { Plugin } from "vite";
 import { EnvCasterContext } from "./ctx";
 import { EnvCasterOptions } from "./types";
 
-export default function EnvCaster(options?: EnvCasterOptions): Plugin[] {
+function EnvCaster(options?: EnvCasterOptions): Plugin[] {
 	const mergedOptions: EnvCasterOptions = {
 		moduleName: "app-env",
 		exportName: "appEnv",
@@ -40,3 +40,5 @@ export default function EnvCaster(options?: EnvCasterOptions): Plugin[] {
 		},
 	];
 }
+
+export default EnvCaster;

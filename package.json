@@ -1,6 +1,6 @@
 {
 	"name": "@niku/vite-env-caster",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"title": "Vite Env Caster",
 	"description": "New way to use environment variables in Vite",
 	"private": false,
@@ -31,7 +31,7 @@
 	"license": "MIT",
 	"type": "module",
 	"main": "./dist/index.cjs",
-	"module": "./dist/index.js",
+	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
 	"publishConfig": {
 		"access": "public"
