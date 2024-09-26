@@ -1,6 +1,6 @@
 {
 	"name": "@niku/vite-env-caster",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"title": "Vite Env Caster",
 	"description": "New way to use environment variables in Vite",
 	"private": false,
