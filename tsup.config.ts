@@ -1,7 +1,7 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-	entry: ["lib/*.ts"],
+	entry: ["lib/index.ts"],
 	format: ["cjs", "esm"],
 	outExtension(ctx) {
 		return {
@@ -13,6 +13,7 @@ export default defineConfig({
 	clean: true,
 	dts: true,
 	skipNodeModulesBundle: true,
-	minify: true,
+	minify: false,
 	treeshake: true,
+	external: ["vite", "chalk"],
 });
