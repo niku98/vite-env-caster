@@ -44,7 +44,7 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "tsup",
-		"release": "bumpp & npm publish"
+		"release": "npm publish"
 	},
 	"devDependencies": {
 		"@types/node": "^20.2.4",
@@ -54,6 +54,6 @@
 		"vite": "^4.0.4"
 	},
 	"dependencies": {
-		"chalk": "^5.3.0"
+		"chalk": "^4"
 	}
 }
