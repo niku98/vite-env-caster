@@ -9,7 +9,7 @@ function objectValues<T extends Record<string, any>>(object: T): T[keyof T][] {
 export function castValueToRealValueInString(value: any): string {
 	switch (typeof value) {
 		case "string":
-			return `"${value}"`;
+			return value.includes('"') ? `'${value}'` : `"${value}"`;
 
 		case "object":
 			if (Array.isArray(value)) {
@@ -55,7 +55,7 @@ export function getTypingType(input: string, casters: TypeCasters) {
 	return "string";
 }
 
-const typeRegex = /\|(([\w\d]+)(\[([\w\d]+)\])?)$/g;
+const typeRegex = /\|(([\w\d]+)(\[([\w\d,]+)\])?)$/g;
 export function extractTypeAndValue(input: string) {
 	let type: string | undefined = undefined;
 	let value = input;

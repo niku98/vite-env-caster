@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import { writeFileSync } from "fs";
 import { resolve } from "path";
 import { loadEnv } from "vite";
@@ -95,11 +96,22 @@ export default ${this.options.exportName};
 		const env: PlainEnv = {};
 
 		for (const key in this.plainEnv) {
-			const newKey = this.options.transformKey
-				? this.options.transformKey(key)
-				: key;
+			try {
+				const newKey = this.options.transformKey
+					? this.options.transformKey(key)
+					: key;
 
-			env[newKey] = this.castToRealType(this.plainEnv[key]) as never;
+				env[newKey] = this.castToRealType(this.plainEnv[key]) as never;
+			} catch (error) {
+				if (error instanceof Error) {
+					console.error(
+						chalk.bold(chalk.green("[vite-env-caster]")),
+						chalk.red(`Failed to cast ${chalk.bold(key)}: ${error.message}`)
+					);
+				} else {
+					throw error;
+				}
+			}
 		}
 
 		return env;
