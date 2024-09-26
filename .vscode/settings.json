@@ -23,7 +23,7 @@
 	"javascript.updateImportsOnFileMove.enabled": "always",
 	"typescript.updateImportsOnFileMove.enabled": "always",
 	"editor.codeActionsOnSave": {
-		"source.organizeImports": true
+		"source.organizeImports": "explicit"
 	},
 	"cSpell.words": ["antd", "Immer", "Sider", "zustand"],
 	"CodeGPT.apiKey": "OpenAI"

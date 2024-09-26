@@ -69,7 +69,7 @@ You have file `.env` like this:
 VITE_API_URL=http://example.com
 VITE_DEFAULT_PAGE_SIZE=10
 VITE_AUTH_ENABLED=false
-VITE_ARRAY_EXAMPLE=[123,abc,def,456]
+VITE_ARRAY_EXAMPLE=[123,abc,def,false,456,true]
 ```
 
 Then, you can import and use it's variables by import as a module.
@@ -81,7 +81,7 @@ import appEnv from "app-env";
 console.log(appEnv.VITE_API_URL) // "http://example.com"
 console.log(appEnv.VITE_DEFAULT_PAGE_SIZE) // 10
 console.log(appEnv.VITE_AUTH_ENABLED) // false
-console.log(appEnv.VITE_ARRAY_EXAMPLE) // [123, "abc", "def", 456]
+console.log(appEnv.VITE_ARRAY_EXAMPLE) // [123, "abc", "def", false,456, true]
 ```
 
 ### Force cast to type
@@ -96,10 +96,10 @@ VITE_IS_A_NUMBER_IN_STRING=10|string
 VITE_IS_A_BOOLEAN_IN_STRING=false|string
 VITE_IS_ARRAY_OF_NUMBER=[123,abc,def,456]|array[number]
 VITE_IS_ARRAY_OF_STRING=[123,abc,def,456]|array[string]
+VITE_IS_ARRAY_OF_BOOLEAN=[true, false, abc, 0]|array[boolean]
 ```
 
 Then.
-
 
 ```ts
 // src/main.ts
@@ -109,11 +109,12 @@ console.log(appEnv.VITE_IS_A_NUMBER_IN_STRING) // "10"
 console.log(appEnv.VITE_IS_A_BOOLEAN_IN_STRING) // "false"
 console.log(appEnv.VITE_IS_ARRAY_OF_NUMBER) // [123, NaN, NaN, 456]
 console.log(appEnv.VITE_IS_ARRAY_OF_STRING) // ["123", "abc", "def", "456"]
+console.log(appEnv.VITE_IS_ARRAY_OF_BOOLEAN) // [true, false, true, false]
 ```
 
 ### Limitation
 
-By default, this plugin only supports these 4 types: `boolean`, `string`, `number`, `(number | string)[]`.
+By default, this plugin only supports these 4 types: `boolean`, `string`, `number`, `(number | string | boolean)[]`.
 
 If you need to cast others type, try to add your custom caster.
 
