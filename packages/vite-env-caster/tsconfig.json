@@ -1,0 +1,26 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"useDefineForClassFields": true,
+		"module": "ES2020",
+		"lib": ["ESNext"],
+		"moduleResolution": "Bundler",
+		"strict": true,
+		"sourceMap": true,
+		"resolveJsonModule": false,
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		"noEmit": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"verbatimModuleSyntax": true,
+		"skipLibCheck": true,
+		"baseUrl": "./",
+		"paths": {
+			"src/*": ["./src/*"]
+		}
+	},
+	"exclude": ["dist"],
+	"include": ["src"]
+}
