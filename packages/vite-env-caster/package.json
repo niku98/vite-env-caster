@@ -1,5 +1,5 @@
 {
-	"name": "@niku/env-caster",
+	"name": "@niku/vite-env-caster",
 	"version": "0.0.0",
 	"title": "Vite Env Caster",
 	"description": "New way to use environment variables in Vite",
@@ -30,22 +30,39 @@
 	],
 	"license": "MIT",
 	"type": "module",
-	"workspaces": [
-		"packages/*",
-		"examples/*"
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.mjs"
+			},
+			"require": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.cjs"
+			}
+		}
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"files": [
+		"dist",
+		"README.md",
+		"LICENSE"
 	],
 	"scripts": {
-		"nx": "nx",
-		"build": "nx run-many --projects=packages/** --target=build",
-		"dev": "nx run-many --projects=packages/** --target=dev",
-		"publish-packages": "node scripts/publish.js"
+		"dev": "tsup --watch",
+		"build": "tsup",
+		"build:example": "vite build",
+		"release": "npm publish"
 	},
 	"devDependencies": {
 		"@types/node": "^20.2.4",
-		"typescript": "^4.9.4",
-		"nx": "20.0.9"
+		"bumpp": "^9.1.0",
+		"tsup": "^6.7.0",
+		"typescript": "^5.6.3"
 	},
-	"nx": {
-		"targets": {}
+	"dependencies": {
+		"chalk": "^4"
 	}
 }
