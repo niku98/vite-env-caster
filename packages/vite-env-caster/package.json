@@ -3,7 +3,7 @@
 	"version": "0.0.0",
 	"title": "Vite Env Caster",
 	"description": "New way to use environment variables in Vite",
-	"private": true,
+	"private": false,
 	"author": {
 		"name": "Niku",
 		"url": "https://github.com/niku98",
