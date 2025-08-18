@@ -70,6 +70,7 @@ export class EnvCasterContext {
   interface ENV {
     ${Object.keys(env)
 			.map((key) => `${key}: ${env[key]}`)
+			.sort()
 			.join(";\n    ")};
   }
 
