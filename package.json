@@ -36,8 +36,8 @@
 	],
 	"scripts": {
 		"nx": "nx",
-		"build": "nx run-many --projects=packages/** --target=build",
-		"dev": "nx run-many --projects=packages/** --target=dev",
+		"build": "nx run-many --projects=packages/** --target=build --skip-nx-cache --no-cloud",
+		"dev": "nx run-many --projects=packages/** --target=dev --skip-nx-cache --no-cloud",
 		"publish-packages": "node scripts/publish.js"
 	},
 	"devDependencies": {
