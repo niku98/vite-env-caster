@@ -42,6 +42,11 @@ export type TypeCasters = {
 
 export interface TypeCaster {
 	/**
+	 * Priority of type caster.
+	 * Lower number means higher priority.
+	 */
+	priority?: number;
+	/**
 	 * Check if value is target type
 	 * @param plainValue Plain value from env file
 	 * @param type Target type got from env file @example Type will be 'string'. ENV_KEY=abc|string
@@ -52,11 +57,20 @@ export interface TypeCaster {
 	 * @param plainValue Plain value from env file
 	 * @param type Target type got from env file @example Type will be 'string'. ENV_KEY=abc|string
 	 */
-	castValue: (plainValue: string, force: boolean, type?: string) => any;
+	castValue: (
+		plainValue: string,
+		force: boolean,
+		type: string | undefined,
+		allCasters: TypeCasters
+	) => any;
 	/**
 	 * Typing current type
 	 * @param plainValue Plain value from env file
 	 * @param type Target type got from env file @example Type will be 'string'. ENV_KEY=abc|string
 	 */
-	typescriptType?: (plainValue: string, type?: string) => string;
+	typescriptType?: (
+		plainValue: string,
+		type: string | undefined,
+		allCasters: TypeCasters
+	) => string;
 }

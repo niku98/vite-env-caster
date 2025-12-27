@@ -1,6 +1,7 @@
 import type { TypeCaster } from "src/types";
 
 const numberTypeCaster: TypeCaster = {
+	priority: 2,
 	isType(plainValue, type) {
 		if (type) {
 			return type.toLowerCase() === "number";

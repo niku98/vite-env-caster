@@ -26,7 +26,6 @@ Ts **Typescript:** Typescript supported.
 <br>
 <br>
 
-
 ## Getting started
 
 ### Installation
@@ -47,13 +46,15 @@ Then add `EnvCaster` to you Vite's plugins.
 
 ```ts
 // vite.config.ts
-import EnvCaster from '@niku/vite-env-caster';
+import EnvCaster from "@niku/vite-env-caster";
 
 export default defineConfig({
-  plugins: [
-    EnvCaster({ /* options */ }),
-  ],
-})
+	plugins: [
+		EnvCaster({
+			/* options */
+		}),
+	],
+});
 ```
 
 ## Usage
@@ -70,6 +71,7 @@ VITE_API_URL=http://example.com
 VITE_DEFAULT_PAGE_SIZE=10
 VITE_AUTH_ENABLED=false
 VITE_ARRAY_EXAMPLE=[123,abc,def,false,456,true]
+VITE_CONFIG={"apiUrl": "http://api.com", "timeout": 5000, "items": [1, "a", 4]}
 ```
 
 Then, you can import and use it's variables by import as a module.
@@ -78,10 +80,11 @@ Then, you can import and use it's variables by import as a module.
 // src/main.ts
 import appEnv from "app-env";
 
-console.log(appEnv.VITE_API_URL) // "http://example.com"
-console.log(appEnv.VITE_DEFAULT_PAGE_SIZE) // 10
-console.log(appEnv.VITE_AUTH_ENABLED) // false
-console.log(appEnv.VITE_ARRAY_EXAMPLE) // [123, "abc", "def", false,456, true]
+console.log(appEnv.VITE_API_URL); // "http://example.com"
+console.log(appEnv.VITE_DEFAULT_PAGE_SIZE); // 10
+console.log(appEnv.VITE_AUTH_ENABLED); // false
+console.log(appEnv.VITE_ARRAY_EXAMPLE); // [123, "abc", "def", false,456, true]
+console.log(appEnv.VITE_CONFIG); // { apiUrl: "http://api.com", timeout: 5000, items: [1, "a", 4] }
 ```
 
 ### Force cast to type
@@ -97,6 +100,7 @@ VITE_IS_A_BOOLEAN_IN_STRING=false|string
 VITE_IS_ARRAY_OF_NUMBER=[123,abc,def,456]|array[number]
 VITE_IS_ARRAY_OF_STRING=[123,abc,def,456]|array[string]
 VITE_IS_ARRAY_OF_BOOLEAN=[true, false, abc, 0]|array[boolean]
+VITE_NESTED_ARRAY=[0, 1234, 6, [yyyy]]|array[number,array[string]]
 ```
 
 Then.
@@ -105,18 +109,50 @@ Then.
 // src/main.ts
 import appEnv from "app-env";
 
-console.log(appEnv.VITE_IS_A_NUMBER_IN_STRING) // "10"
-console.log(appEnv.VITE_IS_A_BOOLEAN_IN_STRING) // "false"
-console.log(appEnv.VITE_IS_ARRAY_OF_NUMBER) // [123, NaN, NaN, 456]
-console.log(appEnv.VITE_IS_ARRAY_OF_STRING) // ["123", "abc", "def", "456"]
-console.log(appEnv.VITE_IS_ARRAY_OF_BOOLEAN) // [true, false, true, false]
+console.log(appEnv.VITE_IS_A_NUMBER_IN_STRING); // "10"
+console.log(appEnv.VITE_IS_A_BOOLEAN_IN_STRING); // "false"
+console.log(appEnv.VITE_IS_ARRAY_OF_NUMBER); // [123, NaN, NaN, 456]
+console.log(appEnv.VITE_IS_ARRAY_OF_STRING); // ["123", "abc", "def", "456"]
+console.log(appEnv.VITE_IS_ARRAY_OF_BOOLEAN); // [true, false, true, false]
+console.log(appEnv.VITE_NESTED_ARRAY); // [0, 1234, 6, ["yyyy"]]
 ```
 
-### Limitation
+#### Nested Array Types
 
-By default, this plugin only supports these 4 types: `boolean`, `string`, `number`, `(number | string | boolean)[]`.
+You can specify nested array types using the `array[type1,array[type2]]` syntax:
 
-If you need to cast others type, try to add your custom caster.
+```env
+// .env.development
+VITE_MIXED_ARRAY=[0, 1234, 6, [yyyy], [123, 456]]|array[number,array[string],array[number]]
+```
+
+This will result in:
+
+- `0`, `1234`, `6` → numbers
+- `[yyyy]` → `["yyyy"]` (array of strings)
+- `[123, 456]` → `[123, 456]` (array of numbers)
+
+#### Object Types
+
+Objects are automatically detected and parsed. The plugin infers exact TypeScript types from the object structure:
+
+```env
+// .env.development
+VITE_CONFIG={"apiUrl": "http://api.com", "timeout": 5000, "retry": true}
+```
+
+TypeScript type will be: `{ apiUrl: string; timeout: number; retry: boolean }`
+
+### Supported Types
+
+By default, this plugin supports these types:
+
+- **Primitive types**: `boolean`, `string`, `number`
+- **Arrays**: `(number | string | boolean | object | array)[]` with automatic type inference
+- **Nested arrays**: `array[number,array[string]]` - supports multiple levels of nesting
+- **Objects**: Automatically parsed with exact TypeScript types (e.g., `{ name: string; age: number }`)
+
+If you need to cast other types, try to add your custom caster.
 
 ## Typescript support
 
@@ -133,32 +169,32 @@ By default, file `env.d.ts` will be generated at root of project. You can includ
 
 ### Transform key
 
-In some case, you may want to use **environment variable** with other convention. Like use with *camel case* and remove prefix `VITE_`. You can customize it very easy.
+In some case, you may want to use **environment variable** with other convention. Like use with _camel case_ and remove prefix `VITE_`. You can customize it very easy.
 
 ```ts
 // vite.config.ts
-import EnvCaster from '@niku/vite-env-caster';
-import {camelCase} from "lodash";
+import EnvCaster from "@niku/vite-env-caster";
+import { camelCase } from "lodash";
 
 export default defineConfig({
-  plugins: [
-    EnvCaster({
-      transformKey: (plainKey) => camelCase(plainKey.replace("VITE_", ""))
-    }),
-  ],
-})
+	plugins: [
+		EnvCaster({
+			transformKey: (plainKey) => camelCase(plainKey.replace("VITE_", "")),
+		}),
+	],
+});
 ```
 
-Then, you can use **environment variable** in *camel case*.
+Then, you can use **environment variable** in _camel case_.
 
 ```ts
 // src/main.ts
 import appEnv from "app-env";
 
-console.log(appEnv.apiUrl) // "http://example.com"
-console.log(appEnv.defaultPageSize) // 10
-console.log(appEnv.authEnabled) // false
-console.log(appEnv.arrayExample) // [123, "abc", "def", 456]
+console.log(appEnv.apiUrl); // "http://example.com"
+console.log(appEnv.defaultPageSize); // 10
+console.log(appEnv.authEnabled); // false
+console.log(appEnv.arrayExample); // [123, "abc", "def", 456]
 ```
 
 ### Custom Type Caster
@@ -167,36 +203,37 @@ This is an example for number caster.
 
 ```ts
 // vite.config.ts
-import EnvCaster from '@niku/vite-env-caster';
-import {camelCase} from "lodash";
+import EnvCaster from "@niku/vite-env-caster";
+import { camelCase } from "lodash";
 
 export default defineConfig({
-  plugins: [
-    EnvCaster({
-      typeCasters: {
-        number: {
-          // Check if variable is number
-          isType(plainValue, type) {
-            if (type) { // Forced type
-              return type.toLowerCase() === "number";
-            }
+	plugins: [
+		EnvCaster({
+			typeCasters: {
+				number: {
+					// Check if variable is number
+					isType(plainValue, type) {
+						if (type) {
+							// Forced type
+							return type.toLowerCase() === "number";
+						}
 
-            // Auto detect
-            return !Number.isNaN(Number(plainValue));
-          },
-          // Cast variable to number
-          castValue(plainValue) {
-            return Number(plainValue);
-          },
-          // Type in declaration file
-          typescriptType() {
-            return "number";
-          },
-        }
-      },
-    }),
-  ],
-})
+						// Auto detect
+						return !Number.isNaN(Number(plainValue));
+					},
+					// Cast variable to number
+					castValue(plainValue) {
+						return Number(plainValue);
+					},
+					// Type in declaration file
+					typescriptType() {
+						return "number";
+					},
+				},
+			},
+		}),
+	],
+});
 ```
 
 ### All options

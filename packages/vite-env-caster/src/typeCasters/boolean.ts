@@ -1,6 +1,7 @@
 import type { TypeCaster } from "src/types";
 
 const booleanTypeCaster: TypeCaster = {
+	priority: 1,
 	isType(plainValue, type) {
 		if (type) {
 			const lowerType = type.toLowerCase();
