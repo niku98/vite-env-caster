@@ -1,6 +1,7 @@
 import { EnvCasterContext } from "src/ctx";
 import type { EnvCasterOptions } from "src/types";
 import type { Plugin } from "vite";
+export { default as defaultTypeCasters } from "./typeCasters";
 
 function EnvCaster(options?: EnvCasterOptions): Plugin[] {
 	const mergedOptions: EnvCasterOptions = {

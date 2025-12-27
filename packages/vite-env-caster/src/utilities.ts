@@ -1,11 +1,5 @@
 import type { TypeCasters } from "src/types";
 
-function objectValues<T extends Record<string, any>>(object: T): T[keyof T][] {
-	const result: T[keyof T][] = Object.keys(object).map((key) => object[key]);
-
-	return result;
-}
-
 export function castValueToRealValueInString(value: any): string {
 	switch (typeof value) {
 		case "string":
@@ -31,13 +25,21 @@ export function castValueToRealValueInString(value: any): string {
 	}
 }
 
-export function castToRealType(input: string, casters: TypeCasters) {
-	const { value, type } = extractTypeAndValue(input);
+export function castToRealType(
+	input: string,
+	casters: TypeCasters,
+	extracType = true
+) {
+	const { value, type } = extracType
+		? extractTypeAndValue(input)
+		: { value: input, type: undefined };
 
-	const caster = objectValues(casters).find((pair) => pair.isType(value, type));
+	const caster = getSortedTypeCasters(casters).find((pair) =>
+		pair.isType(value, type)
+	);
 
 	if (caster) {
-		return caster.castValue(value, !!type, type);
+		return caster.castValue(value, !!type, type, casters);
 	}
 
 	return value;
@@ -46,16 +48,20 @@ export function castToRealType(input: string, casters: TypeCasters) {
 export function getTypingType(input: string, casters: TypeCasters) {
 	const { value, type } = extractTypeAndValue(input);
 
-	const caster = objectValues(casters).find((pair) => pair.isType(value, type));
+	const caster = getSortedTypeCasters(casters).find((pair) =>
+		pair.isType(value, type)
+	);
 
 	if (caster) {
-		return caster.typescriptType ? caster.typescriptType(value, type) : "any";
+		return caster.typescriptType
+			? caster.typescriptType(value, type, casters)
+			: "any";
 	}
 
 	return "string";
 }
 
-const typeRegex = /\|(([\w\d]+)(\[([\w\d,]+)\])?)$/g;
+const typeRegex = /\|(([\w\d]+)(\[([\w\d,\[\]]+)\])?)$/g;
 export function extractTypeAndValue(input: string) {
 	let type: string | undefined = undefined;
 	let value = input;
@@ -68,4 +74,10 @@ export function extractTypeAndValue(input: string) {
 	}
 
 	return { type, value };
+}
+
+export function getSortedTypeCasters(casters: TypeCasters) {
+	return Object.values(casters).sort(
+		(a, b) => (a.priority ?? 0) - (b.priority ?? 0)
+	);
 }
