@@ -6,6 +6,10 @@ const numberTypeCaster: TypeCaster = {
 			return type.toLowerCase() === "number";
 		}
 
+		if (plainValue.length === 0) {
+			return false;
+		}
+
 		return !Number.isNaN(Number(plainValue));
 	},
 	castValue(plainValue) {
